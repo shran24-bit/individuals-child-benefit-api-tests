@@ -2,32 +2,26 @@
 
 # individuals-child-benefit-api-tests
 
-<SERVICE_NAME> API tests.
+individuals-child-benefit API tests.
 
 ## Pre-requisites
 
 ### Services
 
-Start Mongo Docker container as follows:
+Start `INDIVIDUALS_CHILD_BENEFIT_API_ALL` services as follows:
 
 ```bash
-docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:6.0
-```
-
-Start `<SERVICE_MANAGER_PROFILE>` services as follows:
-
-```bash
-sm2 --start <SERVICE_MANAGER_PROFILE>
+sm2 --start INDIVIDUALS_CHILD_BENEFIT_API_ALL
 ```
 
 ## Tests
 
 Run tests as follows:
 
-* Argument `<environment>` must be `local`, `dev`, `qa` or `staging`.
+* Argument `<environment>` must be `local` at the present time.
 
 ```bash
-./run-tests.sh <environment>
+./run_tests.sh <environment>
 ```
 
 ## Scalafmt
