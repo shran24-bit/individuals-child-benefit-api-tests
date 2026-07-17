@@ -20,11 +20,10 @@ import org.scalatest.matchers.must.Matchers.mustBe
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.DefaultBodyReadables.readableAsByteArray
-import uk.gov.hmrc.api.testData.*
-
+import uk.gov.hmrc.test.apis.data.*
 import scala.language.postfixOps
 
-class N001_N006ClaimantIdentityCheckFailure extends BaseSpec with GuiceOneServerPerSuite with TestDataNotification {
+class N001_N006ClaimantIdentityCheckFailure extends BaseSpec with GuiceOneServerPerSuite with ESNZTestDataNotification {
 
   Feature(
     "N001_N006 : Claimant identity check failure"

@@ -19,9 +19,9 @@ package uk.gov.hmrc.test.apis.specs.esnz
 import org.scalatest.matchers.must.Matchers.mustBe
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.api.testData.*
+import uk.gov.hmrc.test.apis.data.*
 
-class N013_N021DownstreamSystemFailures extends BaseSpec with GuiceOneServerPerSuite with TestDataNotification {
+class N013_N021DownstreamSystemFailures extends BaseSpec with GuiceOneServerPerSuite with ESNZTestDataNotification {
 
   Feature(
     "N013_N021 : Handling downstream service failures such as HTTP 500, 503 and 404 responses"

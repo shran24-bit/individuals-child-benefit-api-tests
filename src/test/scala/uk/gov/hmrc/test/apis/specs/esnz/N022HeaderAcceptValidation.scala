@@ -19,9 +19,9 @@ package uk.gov.hmrc.test.apis.specs.esnz
 import org.scalatest.matchers.must.Matchers.mustBe
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.api.testData.*
+import uk.gov.hmrc.test.apis.data.*
 
-class N022HeaderAcceptValidation extends BaseSpec with GuiceOneServerPerSuite with TestDataNotification {
+class N022HeaderAcceptValidation extends BaseSpec with GuiceOneServerPerSuite with ESNZTestDataNotification {
 
   Feature(
     "N022 : Header Validation Scenario : Accept validation Failure"
@@ -56,11 +56,11 @@ class N022HeaderAcceptValidation extends BaseSpec with GuiceOneServerPerSuite wi
           apiResponse.status mustBe statusCode
         }
 
-        /* And("Error response body must contain correct error details")
+         And("Error response body must contain correct error details")
         val responseBody = Json.parse(apiResponse.body)
         (responseBody \ "errors[0].code").as[String] mustBe "ACCEPT_HEADER_INVALID"
         (responseBody \ "errors[0].message")
-          .as[String] mustBe "The accept header is missing or invalid"*/
+          .as[String] mustBe "The accept header is missing or invalid"
 
       }
     }

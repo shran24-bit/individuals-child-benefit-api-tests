@@ -107,6 +107,11 @@ type ResponseErrorCode      = String
 type ResponseErrorMessage   = String
 type ResponseSuccessMessage = String
 type StatusCode             = Int
+def statusCodeToString(statusCode:Int ):String = {
+  statusCode match {
+    case 400 => "400 Bad Request"
+  }
+}
 
 val InvalidInputCode: ResponseErrorCode = "400.1"
 val ForbiddenCode: ResponseErrorCode    = "403.2"

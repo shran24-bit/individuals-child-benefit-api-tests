@@ -5,5 +5,5 @@ lazy val testSuite = (project in file("."))
     version := "0.1.0",
     scalaVersion := "3.3.7",
     scalacOptions ++= Seq("-feature"),
-    libraryDependencies ++= Dependencies.test
+    libraryDependencies ++= Dependencies.compile ++ Dependencies.test
   )

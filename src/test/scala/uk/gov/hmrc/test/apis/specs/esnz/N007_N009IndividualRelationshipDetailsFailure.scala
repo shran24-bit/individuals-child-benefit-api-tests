@@ -19,12 +19,12 @@ package uk.gov.hmrc.test.apis.specs.esnz
 import org.scalatest.matchers.must.Matchers.mustBe
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.api.testData.*
+import uk.gov.hmrc.test.apis.data.*
 
 class N007_N009IndividualRelationshipDetailsFailure
     extends BaseSpec
     with GuiceOneServerPerSuite
-    with TestDataNotification {
+    with ESNZTestDataNotification {
 
   Feature(
     "N007_N009 : Claimant's relationship type and source check failure"
