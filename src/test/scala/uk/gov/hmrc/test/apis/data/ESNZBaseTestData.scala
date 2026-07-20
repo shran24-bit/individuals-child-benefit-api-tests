@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.test.apis.data
 
-
 import java.time.LocalDate
 import scala.util.Random
 
@@ -107,11 +106,11 @@ type ResponseErrorCode      = String
 type ResponseErrorMessage   = String
 type ResponseSuccessMessage = String
 type StatusCode             = Int
-def statusCodeToString(statusCode:Int ):String = {
+def statusCodeToString(statusCode: Int): String =
   statusCode match {
     case 400 => "400 Bad Request"
+    case 406 => "406 Not Acceptable"
   }
-}
 
 val InvalidInputCode: ResponseErrorCode = "400.1"
 val ForbiddenCode: ResponseErrorCode    = "403.2"
