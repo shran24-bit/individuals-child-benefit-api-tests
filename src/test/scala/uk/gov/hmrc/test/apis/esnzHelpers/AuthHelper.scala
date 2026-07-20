@@ -16,9 +16,9 @@
 
 package uk.gov.hmrc.test.apis.esnzHelpers
 
-import play.api.{Configuration, Environment}
 import play.api.libs.json.{JsObject, Json}
-import uk.gov.hmrc.test.apis.client.HttpClient
+import play.api.
+import uk.gov.hmrc.api.client.HttpClient
 import uk.gov.hmrc.api.conf.TestEnvironment
 import uk.gov.hmrc.totp.TotpGenerator
 

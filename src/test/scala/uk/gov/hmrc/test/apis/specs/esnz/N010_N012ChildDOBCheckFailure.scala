@@ -20,9 +20,9 @@ import org.scalatest.matchers.must.Matchers.mustBe
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.DefaultBodyReadables.readableAsByteArray
-import uk.gov.hmrc.test.apis.data.*
+import uk.gov.hmrc.api.testData.*
 
-class N010_N012ChildDOBCheckFailure extends BaseSpec with GuiceOneServerPerSuite with ESNZTestDataNotification {
+class N010_N012ChildDOBCheckFailure extends BaseSpec with GuiceOneServerPerSuite with TestDataNotification {
 
   Feature(
     "N010_N012 : Claimant's child DOB check failure"

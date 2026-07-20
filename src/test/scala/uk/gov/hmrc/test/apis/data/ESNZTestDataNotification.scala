@@ -18,7 +18,7 @@ package uk.gov.hmrc.test.apis.data
 
 import play.api.libs.json.{JsObject, Json}
 
-trait ESNZTestDataNotification extends ESNZBaseTestData {
+trait ESNZTestDataNotification extends BaseTestData {
 
   def claimRequestBody(
     claimantFirstName: String = "firstName",

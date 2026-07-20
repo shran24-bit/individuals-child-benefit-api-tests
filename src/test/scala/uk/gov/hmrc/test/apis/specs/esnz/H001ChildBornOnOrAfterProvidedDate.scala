@@ -20,7 +20,7 @@ import org.scalatest.matchers.must.Matchers.mustBe
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import play.api.libs.json
 import play.api.libs.json.*
-import uk.gov.hmrc.test.apis.data.*
+import uk.gov.hmrc.test.apis.data.{ESNZBaseTestData, ESNZTestDataNotification, validHeaders}
 
 class H001ChildBornOnOrAfterProvidedDate extends BaseSpec with GuiceOneServerPerSuite with ESNZTestDataNotification {
 
