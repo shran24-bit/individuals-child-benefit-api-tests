@@ -122,7 +122,7 @@ class N023SchemaValidation extends BaseSpec with GuiceOneServerPerSuite with ESN
     cases.foreach { case (scenarioName, payload, statusCode, responseErrorMessage) =>
       Scenario(scenarioName) {
 
-        Given("ICB Child Verification API  receives a request with invalid request body from OGD")
+        Given("ICB Child Verification API  receives a valid request from OGD")
         val apiResponse = apiService.claimPostRequest(validHeaders, payload)
 
         And("ICB Child Verification API  returns the HTTP status code " + statusCode + " response to DESNZ")

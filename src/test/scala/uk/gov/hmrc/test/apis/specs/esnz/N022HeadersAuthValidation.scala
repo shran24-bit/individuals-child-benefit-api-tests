@@ -18,7 +18,7 @@ package uk.gov.hmrc.test.apis.specs.esnz
 
 import org.scalatest.matchers.must.Matchers.mustBe
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
-import play.api.libs.ws.DefaultBodyReadables.readableAsByteArray
+import play.api.libs.json.{JsArray, JsValue, Json}
 import uk.gov.hmrc.test.apis.data.*
 
 class N022HeadersAuthValidation extends BaseSpec with GuiceOneServerPerSuite with ESNZTestDataNotification {
@@ -27,42 +27,57 @@ class N022HeadersAuthValidation extends BaseSpec with GuiceOneServerPerSuite wit
     "N022 : Header Validation Scenario : Authorisation validation Failure"
   ) {
 
-    val cases: Seq[(String, Seq[(String, String)], StatusCode)] = Seq(
+    val cases: Seq[(String, Seq[(String, String)], ResponseErrorCode, ResponseErrorMessage)] = Seq(
       (
         "Error : Authorisation is invalid in request header",
         headersInvalidAuth,
-        401
+        "406 Not Acceptable",
+        "The accept header is missing or invalid"
       ),
       (
         "Error : Authorisation value is missing in request header",
         headersMissingAuthorization,
-        401
+        "406 Not Acceptable",
+        "The accept header is missing or invalid"
       ),
       (
         "Error : Authorisation empty in request header",
         headersEmptyAuth,
-        401
+        "406 Not Acceptable",
+        "The accept header is missing or invalid"
       ),
       (
         "Error : Authorisation is expired in request header",
         overrideHeader(validHeaders, "Authorization", getExpiredAuthToken),
-        401
+        "406 Not Acceptable",
+        "The accept header is missing or invalid"
       )
     )
 
-    cases.foreach { case (scenarioName, headers, statusCode) =>
+    cases.foreach { case (scenarioName, headers, statusCode, responseErrorMessage) =>
       Scenario(scenarioName) {
 
-        Given("ICB Child Verification API  receives a request with invalid headers from OGD")
+        Given("ICB Child Verification API  receives a valid request from OGD")
         val apiResponse = apiService.claimPostRequestWithoutAuth(headers, validRequestBody())
 
         Then("ICB Child Verification API  returns the HTTP status code " + statusCode + " response to DESNZ")
         withClue(s"Status=${apiResponse.status}, Body=${apiResponse.body}\n") {
-          apiResponse.status mustBe statusCode
+          statusCodeToString(apiResponse.status) shouldBe statusCode
         }
 
-        And("Error response body must be empty")
-        apiResponse.body mustBe empty
+        And("ICB Child Verification API  returns the HTTP status code " + statusCode + " response to DESNZ")
+        withClue(s"Status=${apiResponse.status}, Body=${apiResponse.body}\n") {
+
+          val errorResMessage: JsValue = Json.parse(apiResponse.body)
+          val errors                   = (errorResMessage \ "errors").as[JsArray]
+          val firstError               = errors.value(0)
+          val code                     = (firstError \ "code").as[String]
+          val message                  = (firstError \ "message").as[String]
+          code    shouldBe "ACCEPT_HEADER_INVALID"
+          message shouldBe responseErrorMessage
+
+        }
+
       }
     }
   }

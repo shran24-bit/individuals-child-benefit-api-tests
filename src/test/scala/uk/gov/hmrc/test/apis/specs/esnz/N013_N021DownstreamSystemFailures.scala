@@ -18,7 +18,7 @@ package uk.gov.hmrc.test.apis.specs.esnz
 
 import org.scalatest.matchers.must.Matchers.mustBe
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
-import play.api.libs.json.*
+import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.test.apis.data.*
 
 class N013_N021DownstreamSystemFailures extends BaseSpec with GuiceOneServerPerSuite with ESNZTestDataNotification {
@@ -84,10 +84,8 @@ class N013_N021DownstreamSystemFailures extends BaseSpec with GuiceOneServerPerS
         Then("ICB Child Verification API  returns the HTTP status code " + statusCode + " to DESNZ")
         withClue(s"Status=${apiResponse.status}, Body=${apiResponse.body}\n") {
           apiResponse.status mustBe statusCode
-        }
 
-        /*And("Error response body must be empty")
-        apiResponse.body mustBe empty*/
+        }
 
       }
     }

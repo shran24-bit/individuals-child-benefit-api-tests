@@ -16,8 +16,9 @@
 
 package uk.gov.hmrc.test.apis.specs.esnz
 
+import org.scalatest.matchers.must.Matchers.mustBe
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
-import play.api.libs.json.{JsArray, JsValue, Json}
+import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.test.apis.data.*
 
 class N022HeaderAcceptValidation extends BaseSpec with GuiceOneServerPerSuite with ESNZTestDataNotification {
@@ -26,40 +27,40 @@ class N022HeaderAcceptValidation extends BaseSpec with GuiceOneServerPerSuite wi
     "N022 : Header Validation Scenario : Accept validation Failure"
   ) {
 
-    val cases: Seq[(String, Seq[(String, String)], ResponseErrorCode)] = Seq(
+    val cases: Seq[(String, Seq[(String, String)], StatusCode)] = Seq(
       (
         "Error : Accept is invalid in request header",
         headersInvalidAccept,
-        "406 Not Acceptable"
+        406
       ),
       (
         "Error : Accept is missing in request header",
         headersMissingAccept,
-        "406 Not Acceptable"
+        406
       ),
       (
         "Error : Accept empty in request header",
         headersEmptyAccept,
-        "406 Not Acceptable"
+        406
       )
     )
 
     cases.foreach { case (scenarioName, headers, statusCode) =>
       Scenario(scenarioName) {
 
-        Given("ICB Child Verification API  receives a request with invalid headers from OGD")
+        Given("ICB Child Verification API  receives a valid request from OGD")
         val apiResponse = apiService.claimPostRequestWithoutAuth(headers, validRequestBody())
 
         Then("ICB Child Verification API  returns the HTTP status code " + statusCode + " response to DESNZ")
         withClue(s"Status=${apiResponse.status}, Body=${apiResponse.body}\n") {
-          statusCodeToString(apiResponse.status) shouldBe statusCode
+          apiResponse.status mustBe statusCode
         }
 
-        And("Error response body must contain correct error details")
+         And("Error response body must contain correct error details")
         val responseBody = Json.parse(apiResponse.body)
-        (responseBody \ "errors").as[JsArray].value.size     shouldBe 1
-        (responseBody \ "errors")(0).\("code").as[String]    shouldBe "ACCEPT_HEADER_INVALID"
-        (responseBody \ "errors")(0).\("message").as[String] shouldBe "The accept header is missing or invalid"
+        (responseBody \ "errors[0].code").as[String] mustBe "ACCEPT_HEADER_INVALID"
+        (responseBody \ "errors[0].message")
+          .as[String] mustBe "The accept header is missing or invalid"
 
       }
     }
