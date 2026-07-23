@@ -1,0 +1,16 @@
+vars {
+  ENVIRONMENT: staging
+  api-host: https://api.staging.tax.service.gov.uk/individuals/child-benefit
+  acceptHeader: application/vnd.hmrc.2.0+json
+  context-path: child-verification/verify
+  ~nino: AA971932
+  ~invalidNino: ZZ30487087
+  ~universalCreditRecordType: LCW/LCWRA
+}
+vars:secret [
+  clientSecret,
+  clientId,
+  totp,
+  TOTP_SECRET,
+  authorization
+]
